@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 // Define the Hackathon schema
 const hackathonSchema = new mongoose.Schema(
@@ -15,6 +15,7 @@ const hackathonSchema = new mongoose.Schema(
 );
 
 // Check if the model already exists and use the existing one or define a new model
-const Hackathon = mongoose.models.Hackathon || mongoose.model("Hackathon", hackathonSchema);
+const Hackathon =
+  mongoose.models.Hackathon || mongoose.model("Hackathon", hackathonSchema);
 
-module.exports = Hackathon;
+export default Hackathon;

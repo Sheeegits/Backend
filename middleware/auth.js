@@ -1,9 +1,9 @@
-const express = require("express");
-const passport = require("passport");
-const { register, login } = require("../controllers/authController.js");
-require("../controllers/googleAuthController.js"); // Ensure Google authentication is initialized
-const upload = require("../middleware/upload.js");
-const verifyToken = require("../middlewares/auth.js"); // Import JWT authentication middleware
+import express from "express";
+import passport from "passport";
+import { register, login } from "../controllers/authController.js";
+import "../controllers/googleAuthController.js"; // Ensure Google authentication is initialized
+import upload from "../middleware/upload.js";
+import verifyToken from "../middlewares/auth.js"; // Import JWT authentication middleware
 
 const router = express.Router();
 
@@ -27,7 +27,7 @@ router.get(
     res.status(200).json({
       message: "Google login successful",
       token: req.user.token, // Send JWT token
-      user: req.user.user,   // User details
+      user: req.user.user, // User details
     });
   }
 );
@@ -37,4 +37,4 @@ router.get("/profile", verifyToken, (req, res) => {
   res.json({ message: "This is a protected profile route", user: req.user });
 });
 
-module.exports = router;
+export default router;

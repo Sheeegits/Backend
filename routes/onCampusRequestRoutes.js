@@ -1,12 +1,12 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
-const {
+import {
   createOnCampusRequest,
   getOnCampusRequest,
   getAllOnCampusRequests,
   updateOnCampusRequest,
   deleteOnCampusRequest,
-} = require("../controllers/onCampusRequestController");
+} from "../controllers/onCampusRequestController.js";
 
 // Create a new OnCampusRequest
 router.post("/", createOnCampusRequest);
@@ -23,4 +23,4 @@ router.put("/:id", updateOnCampusRequest);
 // Delete OnCampusRequest by ID
 router.delete("/:id", deleteOnCampusRequest);
 
-module.exports = router;
+export default router;

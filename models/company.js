@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
+import mongoose from "mongoose";
+import bcrypt from "bcrypt";
 
 // Define schema
 const CompanySchema = new mongoose.Schema(
@@ -51,8 +51,8 @@ const CompanySchema = new mongoose.Schema(
       { type: mongoose.Schema.Types.ObjectId, ref: "Hackathon" },
     ],
     on_campus_requests: [
-          { type: mongoose.Schema.Types.ObjectId, ref: "OnCampusRequest" },
-        ],
+      { type: mongoose.Schema.Types.ObjectId, ref: "OnCampusRequest" },
+    ],
     off_campus_requests: [
       { type: mongoose.Schema.Types.ObjectId, ref: "OffCampusRequest" },
     ],
@@ -87,4 +87,4 @@ CompanySchema.index({ email: 1, user_id: 1 }, { unique: true });
 // Create Model
 const CompanyModel = mongoose.model("Company", CompanySchema);
 
-module.exports = CompanyModel;
+export default CompanyModel;

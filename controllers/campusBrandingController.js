@@ -1,9 +1,9 @@
 // controllers/campusBrandingController.js
-const ServiceRequest = require("../models/ServiceRequest");
-const College = require("../models/College");
-const mongoose = require("mongoose");
+import ServiceRequest from "../models/ServiceRequest";
+import College from "../models/college";
+import mongoose from "mongoose";
 
-exports.requestCampusBranding = async (req, res) => {
+export const requestCampusBranding = async (req, res) => {
   try {
     const { collegeId, brandingDetails } = req.body;
 
@@ -17,11 +17,8 @@ exports.requestCampusBranding = async (req, res) => {
     }
 
     // Validate necessary fields for Campus Branding
-    if (
-      !brandingDetails.targetAudience ||
-      !brandingDetails.strategy ||
-      !brandingDetails.expectedResults
-    ) {
+    const { targetAudience, strategy, expectedResults } = brandingDetails || {};
+    if (!targetAudience || !strategy || !expectedResults) {
       return res
         .status(400)
         .json({ message: "Missing required branding details" });
@@ -36,14 +33,15 @@ exports.requestCampusBranding = async (req, res) => {
 
     await serviceRequest.save();
 
-    res.status(200).json({
+    return res.status(200).json({
       message: "Campus Branding service requested successfully.",
       serviceRequest,
     });
   } catch (error) {
     console.error(error);
-    res
-      .status(500)
-      .json({ message: "Error processing Campus Branding request", error });
+    return res.status(500).json({
+      message: "Error processing Campus Branding request",
+      error,
+    });
   }
 };

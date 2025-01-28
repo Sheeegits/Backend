@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 // Define the Internship schema
 const internshipSchema = new mongoose.Schema(
@@ -14,4 +14,4 @@ const internshipSchema = new mongoose.Schema(
 // Export the Internship model
 const Internship = mongoose.model("Internship", internshipSchema);
 
-module.exports = Internship;
+export default Internship;

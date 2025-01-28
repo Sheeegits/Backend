@@ -1,12 +1,12 @@
-const Student = require("../models/student");
-const JobPosting = require("../models/job");
-const Internship = require("../models/InternshipRequest");
-const CreateJob = require("../models/CreateJob");
-const Hackathon = require('../models/Hackathon'); // Path to your Hackathon model
-const mongoose = require("mongoose");
+import Student from "../models/student.js";
+import JobPosting from "../models/job.js";
+import Internship from "../models/InternshipRequest.js";
+import CreateJob from "../models/CreateJob.js";
+import Hackathon from "../models/hackathon.js"; // Path to your Hackathon model
+import mongoose from "mongoose";
 
 // Get Student Profile
-exports.getStudentProfileByUserId = async (req, res) => {
+const getStudentProfileByUserId = async (req, res) => {
   try {
     const student = await Student.findOne({
       user_id: req.params.user_id,
@@ -24,9 +24,8 @@ exports.getStudentProfileByUserId = async (req, res) => {
   }
 };
 
-
 // Update Student Profile
-exports.updateStudentProfileByUserId = async (req, res) => {
+const updateStudentProfileByUserId = async (req, res) => {
   try {
     const { user_id } = req.params;
     const updatedData = req.body;
@@ -47,9 +46,8 @@ exports.updateStudentProfileByUserId = async (req, res) => {
   }
 };
 
-
 // Apply for a Job
-exports.applyForJobByUserId = async (req, res) => {
+const applyForJobByUserId = async (req, res) => {
   try {
     const { user_id } = req.params;
     const { jobId } = req.body;
@@ -74,8 +72,8 @@ exports.applyForJobByUserId = async (req, res) => {
   }
 };
 
-// Fetch appliedJob 
-exports.getAppliedJobsByUserId = async (req, res) => {
+// Fetch appliedJob
+const getAppliedJobsByUserId = async (req, res) => {
   try {
     const { user_id } = req.params;
 
@@ -98,10 +96,8 @@ exports.getAppliedJobsByUserId = async (req, res) => {
   }
 };
 
-
-
 // Save a Job
-exports.saveJobByUserId = async (req, res) => {
+const saveJobByUserId = async (req, res) => {
   try {
     const { user_id } = req.params;
     const { jobId } = req.body;
@@ -126,8 +122,8 @@ exports.saveJobByUserId = async (req, res) => {
   }
 };
 
-//Fetched saved jobs 
-exports.getSavedJobsByUserId = async (req, res) => {
+//Fetched saved jobs
+const getSavedJobsByUserId = async (req, res) => {
   try {
     const { user_id } = req.params;
 
@@ -145,9 +141,8 @@ exports.getSavedJobsByUserId = async (req, res) => {
   }
 };
 
-
 //Apply for internships
-exports.applyForInternshipByUserId = async (req, res) => {
+const applyForInternshipByUserId = async (req, res) => {
   try {
     const { user_id } = req.params;
     const { internshipId } = req.body;
@@ -176,8 +171,8 @@ exports.applyForInternshipByUserId = async (req, res) => {
   }
 };
 
-//Fetch Applied Internship 
-exports.getAppliedInternshipsByUserId = async (req, res) => {
+//Fetch Applied Internship
+const getAppliedInternshipsByUserId = async (req, res) => {
   try {
     const { user_id } = req.params;
 
@@ -202,7 +197,7 @@ exports.getAppliedInternshipsByUserId = async (req, res) => {
 };
 
 // Fetch the student's profile to get their skillset
-exports.getJobsBySkillset = async (req, res) => {
+const getJobsBySkillset = async (req, res) => {
   const { user_id } = req.params;
 
   try {
@@ -225,7 +220,7 @@ exports.getJobsBySkillset = async (req, res) => {
 };
 
 // Get Jobs Based on Preferences
-exports.getJobsByPreferences = async (req, res) => {
+const getJobsByPreferences = async (req, res) => {
   const { user_id } = req.params;
   const { location, experience, salary } = req.query;
 
@@ -252,15 +247,15 @@ exports.getJobsByPreferences = async (req, res) => {
 
     res.status(200).json({ jobs });
   } catch (error) {
-    res.status(500).json({ message: "Error fetching jobs by preferences", error });
+    res
+      .status(500)
+      .json({ message: "Error fetching jobs by preferences", error });
   }
 };
 
-
-
 // Apply for Hackathon
 
-exports.applyForHackathonByUserId = async (req, res) => {
+const applyForHackathonByUserId = async (req, res) => {
   try {
     const { user_id } = req.params;
     const { hackathonId } = req.body;
@@ -315,9 +310,8 @@ exports.applyForHackathonByUserId = async (req, res) => {
   }
 };
 
-
 // Fetch Applied Hackathons for a Student
-exports.getAppliedHackathonsByUserId = async (req, res) => {
+const getAppliedHackathonsByUserId = async (req, res) => {
   try {
     const { user_id } = req.params;
 
@@ -341,4 +335,19 @@ exports.getAppliedHackathonsByUserId = async (req, res) => {
     console.error("Error fetching applied hackathons:", error);
     res.status(500).json({ message: "Error fetching applied hackathons" });
   }
+};
+
+export default {
+  getStudentProfileByUserId,
+  updateStudentProfileByUserId,
+  applyForJobByUserId,
+  getAppliedJobsByUserId,
+  saveJobByUserId,
+  getSavedJobsByUserId,
+  applyForInternshipByUserId,
+  getAppliedInternshipsByUserId,
+  getJobsBySkillset,
+  getJobsByPreferences,
+  applyForHackathonByUserId,
+  getAppliedHackathonsByUserId,
 };

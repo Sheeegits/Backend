@@ -1,10 +1,11 @@
-const express = require("express");
-const passport = require("passport");
-const { register, login } = require("../controllers/authController.js");
-const upload = require("../middleware/upload.js");
+import express from "express";
+import passport from "passport";
+import authController from "../controllers/authController.js";
+import upload from "../middleware/upload.js";
 
 const router = express.Router();
 
+const { register, login } = authController;
 // Register route (Manual)
 router.post("/register", upload.single("resume"), register);
 
@@ -37,4 +38,4 @@ router.get(
   }
 );
 
-module.exports = router;
+export default router;

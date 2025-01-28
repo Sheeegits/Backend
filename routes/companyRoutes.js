@@ -1,6 +1,6 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
-const {
+import {
   getCompanyProfile,
   updateCompanyProfile,
   createJobPosting,
@@ -11,7 +11,7 @@ const {
   getAppliedHackathons,
   getAppliedOffCampusJobs,
   getAppliedOnCampusJobs,
-} = require("../controllers/companyController");
+} from "../controllers/companyController.js";
 
 // Get company profile
 router.get("/:id", getCompanyProfile);
@@ -31,7 +31,6 @@ router.post("/apply/hackathon/:id", applyToHackathon);
 // Apply to Off-campus Request
 router.post("/apply/off-campus/:id", applyToOffCampusRequest);
 
-
 // Apply to On-campus Request
 router.post("/apply/on-campus/:id", applyToOnCampusRequest);
 
@@ -43,4 +42,5 @@ router.get("/applied/off-campus/:id", getAppliedOffCampusJobs);
 
 // Get Applied On-campus Jobs
 router.get("/applied/on-campus/:id", getAppliedOnCampusJobs);
-module.exports = router;
+
+export default router;

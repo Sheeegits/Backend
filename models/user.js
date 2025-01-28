@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const bcrypt = require("bcryptjs");
+import mongoose from "mongoose";
+import bcrypt from "bcryptjs";
 
 // Define the schema for the User model
 const userSchema = new mongoose.Schema(
@@ -47,8 +47,6 @@ userSchema.statics.findByEmail = async function (email) {
   return this.findOne({ email });
 };
 
-
-
 // Post-save hook to handle duplicate key errors
 userSchema.post("save", function (error, doc, next) {
   if (error.name === "MongoServerError" && error.code === 11000) {
@@ -70,4 +68,4 @@ userSchema.post("save", function (error, doc, next) {
 
 // Create and export the User model
 const User = mongoose.model("User", userSchema);
-module.exports = User;
+export default User;

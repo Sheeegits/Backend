@@ -1,10 +1,10 @@
-const argon2 = require("argon2");
-const jwt = require("jsonwebtoken");
-const path = require("path");
-const User = require("../models/user.js");
-const Student = require("../models/student.js");
-const Company = require("../models/company.js");
-const College = require("../models/college.js");
+import argon2 from "argon2";
+import jwt from "jsonwebtoken";
+import path from "path";
+import User from "../models/user.js";
+import Student from "../models/student.js";
+import Company from "../models/company.js";
+import College from "../models/college.js";
 
 // Helper function to create JWT tokens
 const createToken = (userId, userType) => {
@@ -124,8 +124,6 @@ const login = async (req, res) => {
       return;
     }
 
-    
-
     // Compare the plain password with the hashed password using argon2
     const isPasswordValid = await argon2.verify(user.password, password.trim());
 
@@ -157,7 +155,7 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = {
+export default {
   register,
   login,
 };

@@ -1,10 +1,10 @@
 // controllers/companyServiceController.js
-const CompanyServiceRequest = require("../models/CompanyServiceRequest");
-const Company = require("../models/company");
-const mongoose = require("mongoose");
+import CompanyServiceRequest from "../models/CompanyServiceRequest.js";
+import Company from "../models/company.js";
+import mongoose from "mongoose";
 
 // Request Campus Drives Service
-exports.requestCampusDrives = async (req, res) => {
+export const requestCampusDrives = async (req, res) => {
   try {
     const { companyId } = req.body;
 
@@ -61,7 +61,7 @@ exports.requestCampusDrives = async (req, res) => {
 };
 
 // Request Part Of Job Fairs Service
-exports.requestJobFairs = async (req, res) => {
+export const requestJobFairs = async (req, res) => {
   try {
     const { companyId, jobFairDetails } = req.body;
 
@@ -95,7 +95,7 @@ exports.requestJobFairs = async (req, res) => {
 };
 
 // Request Staffing Solution Service
-exports.requestStaffingSolution = async (req, res) => {
+export const requestStaffingSolution = async (req, res) => {
   try {
     const { companyId, staffingRequirements } = req.body;
 
@@ -129,7 +129,7 @@ exports.requestStaffingSolution = async (req, res) => {
 };
 
 // Request Staff Training Programs Service
-exports.requestStaffTraining = async (req, res) => {
+export const requestStaffTraining = async (req, res) => {
   try {
     const { companyId, trainingDetails } = req.body;
 
@@ -163,7 +163,7 @@ exports.requestStaffTraining = async (req, res) => {
 };
 
 // Request Internship Programs Service
-exports.requestInternshipPrograms = async (req, res) => {
+export const requestInternshipPrograms = async (req, res) => {
   try {
     const { companyId, internshipDetails } = req.body;
 
@@ -197,7 +197,7 @@ exports.requestInternshipPrograms = async (req, res) => {
 };
 
 // Request Employer Branding Service
-exports.requestEmployerBranding = async (req, res) => {
+export const requestEmployerBranding = async (req, res) => {
   try {
     const { companyId, brandingDetails } = req.body;
 
@@ -228,4 +228,13 @@ exports.requestEmployerBranding = async (req, res) => {
       .status(500)
       .json({ message: "Error processing Employer Branding request", error });
   }
+};
+
+export default {
+  requestCampusDrives,
+  requestEmployerBranding,
+  requestInternshipPrograms,
+  requestJobFairs,
+  requestStaffTraining,
+  requestStaffingSolution,
 };

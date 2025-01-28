@@ -1,7 +1,7 @@
-const OffCampusRequest = require("../models/OffCampusRequest");
+import OffCampusRequest from "../models/OffCampusRequest.js";
 
 // Create a new OffCampusRequest
-exports.createOffCampusRequest = async (req, res) => {
+export const createOffCampusRequest = async (req, res) => {
   try {
     const { request_id, course, company_id, details } = req.body;
 
@@ -24,7 +24,7 @@ exports.createOffCampusRequest = async (req, res) => {
 };
 
 // Get OffCampusRequest by ID
-exports.getOffCampusRequest = async (req, res) => {
+export const getOffCampusRequest = async (req, res) => {
   try {
     const request = await OffCampusRequest.findById(req.params.id).populate(
       "company_id"
@@ -40,7 +40,7 @@ exports.getOffCampusRequest = async (req, res) => {
 };
 
 // Get all OffCampusRequests
-exports.getAllOffCampusRequests = async (req, res) => {
+export const getAllOffCampusRequests = async (req, res) => {
   try {
     const requests = await OffCampusRequest.find().populate("company_id");
     res.status(200).json(requests);
@@ -52,7 +52,7 @@ exports.getAllOffCampusRequests = async (req, res) => {
 };
 
 // Update OffCampusRequest by ID
-exports.updateOffCampusRequest = async (req, res) => {
+export const updateOffCampusRequest = async (req, res) => {
   try {
     const { course, company_id, details } = req.body;
 
@@ -73,7 +73,7 @@ exports.updateOffCampusRequest = async (req, res) => {
 };
 
 // Delete OffCampusRequest by ID
-exports.deleteOffCampusRequest = async (req, res) => {
+export const deleteOffCampusRequest = async (req, res) => {
   try {
     const request = await OffCampusRequest.findByIdAndDelete(req.params.id);
     if (!request)

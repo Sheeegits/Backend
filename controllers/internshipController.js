@@ -1,7 +1,7 @@
-const Internship = require("../models/internship");
+import Internship from "../models/internship.js";
 
 // Create a new Internship
-exports.createInternship = async (req, res) => {
+export const createInternship = async (req, res) => {
   try {
     const { internship_id, title, description, company_id } = req.body;
 
@@ -22,7 +22,7 @@ exports.createInternship = async (req, res) => {
 };
 
 // Get Internship by ID
-exports.getInternship = async (req, res) => {
+export const getInternship = async (req, res) => {
   try {
     const internship = await Internship.findById(req.params.id).populate(
       "company_id"
@@ -36,7 +36,7 @@ exports.getInternship = async (req, res) => {
 };
 
 // Get all Internships
-exports.getAllInternships = async (req, res) => {
+export const getAllInternships = async (req, res) => {
   try {
     const internships = await Internship.find().populate("company_id");
     res.status(200).json(internships);
@@ -46,7 +46,7 @@ exports.getAllInternships = async (req, res) => {
 };
 
 // Update Internship by ID
-exports.updateInternship = async (req, res) => {
+export const updateInternship = async (req, res) => {
   try {
     const { title, description, company_id } = req.body;
     const updatedInternship = await Internship.findByIdAndUpdate(
@@ -64,7 +64,7 @@ exports.updateInternship = async (req, res) => {
 };
 
 // Delete Internship by ID
-exports.deleteInternship = async (req, res) => {
+export const deleteInternship = async (req, res) => {
   try {
     const internship = await Internship.findByIdAndDelete(req.params.id);
     if (!internship)

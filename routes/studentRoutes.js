@@ -1,6 +1,6 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
-const studentController = require("../controllers/studentController");
+import studentController from "../controllers/studentController.js";
 
 // Student Profile Routes
 router.get("/profile/:user_id", studentController.getStudentProfileByUserId);
@@ -14,15 +14,30 @@ router.get("/saved-jobs/:user_id", studentController.getSavedJobsByUserId);
 
 // Job Search Routes
 router.get("/jobs/skillset/:user_id", studentController.getJobsBySkillset);
-router.get("/jobs/preferences/:user_id", studentController.getJobsByPreferences);
+router.get(
+  "/jobs/preferences/:user_id",
+  studentController.getJobsByPreferences
+);
 
 // Internship Application Routes
-router.post("/apply-internship/:user_id",studentController.applyForInternshipByUserId);
-router.get("/applied-internships/:user_id", studentController.getAppliedInternshipsByUserId);
+router.post(
+  "/apply-internship/:user_id",
+  studentController.applyForInternshipByUserId
+);
+router.get(
+  "/applied-internships/:user_id",
+  studentController.getAppliedInternshipsByUserId
+);
 
 // Route for applying for a hackathon
-router.post("/apply_for_hackathon/:user_id", studentController.applyForHackathonByUserId);
-router.get("/applied_hackathons/:user_id",studentController.getAppliedHackathonsByUserId);
+router.post(
+  "/apply_for_hackathon/:user_id",
+  studentController.applyForHackathonByUserId
+);
+router.get(
+  "/applied_hackathons/:user_id",
+  studentController.getAppliedHackathonsByUserId
+);
 
 // Export the router
-module.exports = router;
+export default router;

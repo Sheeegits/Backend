@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const { v4: uuidv4 } = require("uuid"); // Import the UUID library
+import mongoose from "mongoose";
+import { v4 as uuidv4 } from "uuid"; // Import the UUID library
 
 // Define schema
 const CreateJobSchema = new mongoose.Schema(
@@ -47,4 +47,4 @@ CreateJobSchema.index({ job_id: 1, company_id: 1 }, { unique: true });
 // Create Model
 const CreateJobModel = mongoose.model("CreateJob", CreateJobSchema);
 
-module.exports = CreateJobModel;
+export default CreateJobModel;

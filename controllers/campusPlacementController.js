@@ -1,9 +1,9 @@
 // controllers/campusPlacementController.js
-const ServiceRequest = require("../models/ServiceRequest");
-const College = require("../models/College");
-const mongoose = require("mongoose");
+import ServiceRequest from "../models/ServiceRequest";
+import College from "../models/college.js";
+import mongoose from "mongoose";
 
-exports.requestCampusPlacement = async (req, res) => {
+export const requestCampusPlacement = async (req, res) => {
   try {
     const { collegeId } = req.body;
 
@@ -18,38 +18,44 @@ exports.requestCampusPlacement = async (req, res) => {
 
     // Validate necessary fields for Campus Placement service
     const missingFields = [];
+    const {
+      courses,
+      location,
+      studentStrength,
+      tpoEmail,
+      mobileNumber,
+      placementSeason,
+    } = college;
+
     if (
-      !college.courses.polytechnicCourses.length &&
-      !college.courses.ugCourses.length &&
-      !college.courses.pgCourses.length
+      !courses.polytechnicCourses.length &&
+      !courses.ugCourses.length &&
+      !courses.pgCourses.length
     ) {
       missingFields.push("Courses Offered");
     }
     if (
-      !college.location.street ||
-      !college.location.city ||
-      !college.location.state ||
-      !college.location.pincode
+      !location.street ||
+      !location.city ||
+      !location.state ||
+      !location.pincode
     ) {
       missingFields.push("Location Details");
     }
     if (
-      !college.studentStrength.polytechnicStrength ||
-      !college.studentStrength.ugStrength ||
-      !college.studentStrength.pgStrength
+      !studentStrength.polytechnicStrength ||
+      !studentStrength.ugStrength ||
+      !studentStrength.pgStrength
     ) {
       missingFields.push("Student Strength");
     }
-    if (!college.tpoEmail) {
+    if (!tpoEmail) {
       missingFields.push("TPO/SPOC Email");
     }
-    if (!college.mobileNumber) {
+    if (!mobileNumber) {
       missingFields.push("Mobile Number");
     }
-    if (
-      !college.placementSeason.startDate ||
-      !college.placementSeason.endDate
-    ) {
+    if (!placementSeason.startDate || !placementSeason.endDate) {
       missingFields.push("Placement Season Duration");
     }
 
@@ -67,25 +73,26 @@ exports.requestCampusPlacement = async (req, res) => {
       college: college._id,
       serviceType: "Campus Placement",
       details: {
-        coursesOffered: college.courses,
-        location: college.location,
-        studentStrength: college.studentStrength,
-        tpoEmail: college.tpoEmail,
-        mobileNumber: college.mobileNumber,
-        placementSeason: college.placementSeason,
+        coursesOffered: courses,
+        location,
+        studentStrength,
+        tpoEmail,
+        mobileNumber,
+        placementSeason,
       },
     });
 
     await serviceRequest.save();
 
-    res.status(200).json({
+    return res.status(200).json({
       message: "Campus Placement service requested successfully.",
       serviceRequest,
     });
   } catch (error) {
     console.error(error);
-    res
-      .status(500)
-      .json({ message: "Error processing Campus Placement request", error });
+    return res.status(500).json({
+      message: "Error processing Campus Placement request",
+      error,
+    });
   }
 };

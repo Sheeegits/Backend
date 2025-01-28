@@ -1,16 +1,15 @@
-const Company = require("../models/company");
-const JobPosting = require("../models/CreateJob");
-//const EventRequest = require("../models/EventRequest");
-//const InternshipOffer = require("../models/InternshipOffer");
-const Hackathon = require("../models/Hackathon");
-const OffCampusRequest = require("../models/OffCampusRequest");
-const OnCampusRequest = require("../models/OnCampusRequest");
-const College = require("../models/College");
-const mongoose = require("mongoose");
-
+import Company from "../models/company.js";
+import JobPosting from "../models/CreateJob.js";
+//import EventRequest from "../models/EventRequest";
+//import InternshipOffer from "../models/InternshipOffer";
+import Hackathon from "../models/hackathon.js";
+import OffCampusRequest from "../models/OffCampusRequest.js";
+import OnCampusRequest from "../models/OnCampusRequest.js";
+import College from "../models/college.js";
+import mongoose from "mongoose";
 
 // Get College Profile
-exports.getCompanyProfile = async (req, res) => {
+export const getCompanyProfile = async (req, res) => {
   try {
     const company = await Company.findById(req.params.id);
 
@@ -24,7 +23,7 @@ exports.getCompanyProfile = async (req, res) => {
 };
 
 // Update Company Profile
-exports.updateCompanyProfile = async (req, res) => {
+export const updateCompanyProfile = async (req, res) => {
   try {
     const { id } = req.params;
     const updatedData = req.body;
@@ -42,7 +41,7 @@ exports.updateCompanyProfile = async (req, res) => {
 };
 
 // Create a Job Posting
-exports.createJobPosting = async (req, res) => {
+export const createJobPosting = async (req, res) => {
   try {
     const {
       title,
@@ -84,10 +83,9 @@ exports.createJobPosting = async (req, res) => {
 };
 
 // Get Job Postings by Company ID
-exports.getJobPostingsByCompanyId = async (req, res) => {
+export const getJobPostingsByCompanyId = async (req, res) => {
   try {
     const companyId = req.params.id; // Get the company ID from the request parameters
-    
 
     // Validate the companyId
     if (!mongoose.Types.ObjectId.isValid(companyId)) {
@@ -107,16 +105,14 @@ exports.getJobPostingsByCompanyId = async (req, res) => {
     });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Error fetching job postings by company", error });
+    res
+      .status(500)
+      .json({ message: "Error fetching job postings by company", error });
   }
 };
 
-
-
-
-
 // Apply to OnCampus Request
-exports.applyToOnCampusRequest = async (req, res) => {
+export const applyToOnCampusRequest = async (req, res) => {
   try {
     const { id } = req.params; // Company ID
     const { jobId } = req.body; // OnCampusRequest ID
@@ -151,7 +147,9 @@ exports.applyToOnCampusRequest = async (req, res) => {
 
     // Check if already applied
     if (company.on_campus_requests.includes(jobId)) {
-      return res.status(400).json({ message: "Already applied for this OnCampus job" });
+      return res
+        .status(400)
+        .json({ message: "Already applied for this OnCampus job" });
     }
 
     // Apply for the OnCampus Request
@@ -167,9 +165,8 @@ exports.applyToOnCampusRequest = async (req, res) => {
   }
 };
 
-
 // Fetch applied OnCampus Jobs for a Company
-exports.getAppliedOnCampusJobs = async (req, res) => {
+export const getAppliedOnCampusJobs = async (req, res) => {
   try {
     const { id } = req.params; // Company ID
 
@@ -179,14 +176,19 @@ exports.getAppliedOnCampusJobs = async (req, res) => {
     }
 
     // Find the Company and populate the OnCampus requests
-    const company = await Company.findById(id).populate('on_campus_requests');
+    const company = await Company.findById(id).populate("on_campus_requests");
     if (!company) {
       return res.status(404).json({ message: "Company not found" });
     }
 
     // Check if there are applied OnCampus jobs
-    if (!company.on_campus_requests || company.on_campus_requests.length === 0) {
-      return res.status(404).json({ message: "No applied OnCampus jobs found" });
+    if (
+      !company.on_campus_requests ||
+      company.on_campus_requests.length === 0
+    ) {
+      return res
+        .status(404)
+        .json({ message: "No applied OnCampus jobs found" });
     }
 
     // Return the applied OnCampus jobs
@@ -196,14 +198,14 @@ exports.getAppliedOnCampusJobs = async (req, res) => {
     });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Error fetching applied OnCampus jobs", error });
+    res
+      .status(500)
+      .json({ message: "Error fetching applied OnCampus jobs", error });
   }
 };
 
-
-
 // Apply to OffCampus Request
-exports.applyToOffCampusRequest = async (req, res) => {
+export const applyToOffCampusRequest = async (req, res) => {
   try {
     const { id } = req.params; // Company ID
     const { jobId } = req.body; // OffCampusRequest ID
@@ -233,7 +235,9 @@ exports.applyToOffCampusRequest = async (req, res) => {
 
     // Check if already applied
     if (company.off_campus_requests.includes(jobId)) {
-      return res.status(400).json({ message: "Already applied for this OffCampus job" });
+      return res
+        .status(400)
+        .json({ message: "Already applied for this OffCampus job" });
     }
 
     // Apply for the OffCampus Request
@@ -250,7 +254,7 @@ exports.applyToOffCampusRequest = async (req, res) => {
 };
 
 // Fetch applied OffCampus Jobs for a Company
-exports.getAppliedOffCampusJobs = async (req, res) => {
+export const getAppliedOffCampusJobs = async (req, res) => {
   try {
     const { id } = req.params; // Company ID
 
@@ -260,7 +264,7 @@ exports.getAppliedOffCampusJobs = async (req, res) => {
     }
 
     // Find the Company and populate the OffCampus requests
-    const company = await Company.findById(id).populate('off_campus_requests');
+    const company = await Company.findById(id).populate("off_campus_requests");
     if (!company) {
       return res.status(404).json({ message: "Company not found" });
     }
@@ -282,13 +286,14 @@ exports.getAppliedOffCampusJobs = async (req, res) => {
     });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Error fetching applied OffCampus jobs", error });
+    res
+      .status(500)
+      .json({ message: "Error fetching applied OffCampus jobs", error });
   }
 };
 
-
 // Apply to Hackathon
-exports.applyToHackathon = async (req, res) => {
+export const applyToHackathon = async (req, res) => {
   try {
     const { id } = req.params; // Company ID
     const { hackathonId } = req.body; // Hackathon ID
@@ -319,7 +324,9 @@ exports.applyToHackathon = async (req, res) => {
 
     // Check if the company has already applied to this hackathon
     if (company.hackathon_applications.includes(hackathonObjectId.toString())) {
-      return res.status(400).json({ message: "Already applied to this hackathon" });
+      return res
+        .status(400)
+        .json({ message: "Already applied to this hackathon" });
     }
 
     // Push the hackathon ID into the applied hackathons field
@@ -335,14 +342,15 @@ exports.applyToHackathon = async (req, res) => {
   }
 };
 
-
 // Get Applied Hackathons
-exports.getAppliedHackathons = async (req, res) => {
+export const getAppliedHackathons = async (req, res) => {
   try {
     const { id } = req.params; // Company ID
 
     // Fetch the Company document
-    const company = await Company.findById(id).populate('hackathon_applications');
+    const company = await Company.findById(id).populate(
+      "hackathon_applications"
+    );
 
     // Check if the Company exists
     if (!company) {
@@ -353,7 +361,7 @@ exports.getAppliedHackathons = async (req, res) => {
     if (company.hackathon_applications.length > 0) {
       res.status(200).json({
         message: "Fetched applied hackathons successfully",
-        appliedHackathons: company.hackathon_applications
+        appliedHackathons: company.hackathon_applications,
       });
     } else {
       res.status(404).json({ message: "No applied hackathons found" });

@@ -1,7 +1,7 @@
-const InternshipRequest = require("../models/InternshipRequest");
+import InternshipRequest from "../models/InternshipRequest.js";
 
 // Create a new Internship Request
-exports.createInternshipRequest = async (req, res) => {
+export const createInternshipRequest = async (req, res) => {
   try {
     const { internship_id, title, description, course, company_id } = req.body;
 
@@ -14,12 +14,10 @@ exports.createInternshipRequest = async (req, res) => {
     });
 
     await newInternshipRequest.save();
-    res
-      .status(201)
-      .json({
-        message: "Internship request created successfully",
-        newInternshipRequest,
-      });
+    res.status(201).json({
+      message: "Internship request created successfully",
+      newInternshipRequest,
+    });
   } catch (error) {
     res
       .status(500)
@@ -28,7 +26,7 @@ exports.createInternshipRequest = async (req, res) => {
 };
 
 // Get Internship Request by ID
-exports.getInternshipRequest = async (req, res) => {
+export const getInternshipRequest = async (req, res) => {
   try {
     const internshipRequest = await InternshipRequest.findById(
       req.params.id
@@ -44,7 +42,7 @@ exports.getInternshipRequest = async (req, res) => {
 };
 
 // Get all Internship Requests
-exports.getAllInternshipRequests = async (req, res) => {
+export const getAllInternshipRequests = async (req, res) => {
   try {
     const internshipRequests = await InternshipRequest.find().populate(
       "company_id"
@@ -58,7 +56,7 @@ exports.getAllInternshipRequests = async (req, res) => {
 };
 
 // Update Internship Request by ID
-exports.updateInternshipRequest = async (req, res) => {
+export const updateInternshipRequest = async (req, res) => {
   try {
     const { title, description, course, company_id } = req.body;
     const updatedInternshipRequest = await InternshipRequest.findByIdAndUpdate(
@@ -78,7 +76,7 @@ exports.updateInternshipRequest = async (req, res) => {
 };
 
 // Delete Internship Request by ID
-exports.deleteInternshipRequest = async (req, res) => {
+export const deleteInternshipRequest = async (req, res) => {
   try {
     const internshipRequest = await InternshipRequest.findByIdAndDelete(
       req.params.id

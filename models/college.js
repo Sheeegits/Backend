@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
+import mongoose from "mongoose";
+import bcrypt from "bcrypt";
 
 // Define schema
 const CollegeSchema = new mongoose.Schema(
@@ -80,6 +80,7 @@ CollegeSchema.post("save", function (error, doc, next) {
 CollegeSchema.index({ email: 1, user_id: 1 }, { unique: true });
 
 // Prevent Overwriting Model
-const CollegeModel = mongoose.models.College || mongoose.model("College", CollegeSchema);
+const CollegeModel =
+  mongoose.models.College || mongoose.model("College", CollegeSchema);
 
-module.exports = CollegeModel;
+export default CollegeModel;

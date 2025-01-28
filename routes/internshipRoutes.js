@@ -1,12 +1,12 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
-const {
+import {
   createInternship,
   getInternship,
   getAllInternships,
   updateInternship,
   deleteInternship,
-} = require("../controllers/internshipController");
+} from "../controllers/internshipController.js";
 
 // Create a new Internship
 router.post("/", createInternship);
@@ -23,4 +23,4 @@ router.put("/:id", updateInternship);
 // Delete Internship by ID
 router.delete("/:id", deleteInternship);
 
-module.exports = router;
+export default router;

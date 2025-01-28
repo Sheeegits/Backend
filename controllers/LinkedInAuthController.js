@@ -1,8 +1,9 @@
-require("dotenv").config();
-const passport = require("passport");
-const LinkedInStrategy = require("passport-linkedin-oauth2").Strategy;
-const jwt = require("jsonwebtoken");
-
+import dotenv from "dotenv";
+import passport from "passport";
+import LinkedInStrategy from "passport-linkedin-oauth2";
+import jwt from "jsonwebtoken";
+dotenv.config();
+LinkedInStrategy.Strategy;
 const CLIENT_ID = process.env.LINKEDIN_CLIENT_ID;
 const CLIENT_SECRET = process.env.LINKEDIN_CLIENT_SECRET;
 const CALLBACK_URL = process.env.LINKEDIN_CALLBACK_URL;
@@ -48,4 +49,4 @@ passport.deserializeUser((user, done) => {
   done(null, user);
 });
 
-module.exports = passport;
+export default passport;
