@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
+import mongoose from "mongoose";
+import bcrypt from "bcrypt";
 
 // Define schema
 const StudentSchema = new mongoose.Schema(
@@ -107,4 +107,4 @@ StudentSchema.post("save", function (error, doc, next) {
 // Create Model
 const StudentModel = mongoose.model("Student", StudentSchema);
 
-module.exports = StudentModel;
+export default StudentModel;

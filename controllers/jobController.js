@@ -1,7 +1,7 @@
-const Job = require("../models/job");
+import Job from "../models/job.js";
 
 // Create a new Job
-exports.createJob = async (req, res) => {
+export const createJob = async (req, res) => {
   try {
     const {
       jobId,
@@ -35,7 +35,7 @@ exports.createJob = async (req, res) => {
 };
 
 // Get Job by ID
-exports.getJob = async (req, res) => {
+export const getJob = async (req, res) => {
   try {
     const job = await Job.findById(req.params.id).populate("companyId");
     if (!job) return res.status(404).json({ message: "Job not found" });
@@ -46,7 +46,7 @@ exports.getJob = async (req, res) => {
 };
 
 // Get all Jobs
-exports.getAllJobs = async (req, res) => {
+export const getAllJobs = async (req, res) => {
   try {
     const jobs = await Job.find().populate("companyId");
     res.status(200).json(jobs);
@@ -56,7 +56,7 @@ exports.getAllJobs = async (req, res) => {
 };
 
 // Update Job by ID
-exports.updateJob = async (req, res) => {
+export const updateJob = async (req, res) => {
   try {
     const {
       title,
@@ -90,7 +90,7 @@ exports.updateJob = async (req, res) => {
 };
 
 // Delete Job by ID
-exports.deleteJob = async (req, res) => {
+export const deleteJob = async (req, res) => {
   try {
     const job = await Job.findByIdAndDelete(req.params.id);
     if (!job) return res.status(404).json({ message: "Job not found" });

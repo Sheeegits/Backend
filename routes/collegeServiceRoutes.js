@@ -1,12 +1,12 @@
 // routes/collegeServiceRoutes.js
-const express = require("express");
+import express from "express";
 const router = express.Router();
-const {
+import {
   requestCampusPlacement,
   requestCampusBranding,
   requestSeminar,
   requestTrainingProgram,
-} = require("../controllers/collegeServiceController");
+} from "../controllers/collegeServiceController.js";
 
 // Request Campus Placement Service
 router.post("/campus-placement", requestCampusPlacement);
@@ -20,4 +20,4 @@ router.post("/seminar", requestSeminar);
 // Request Training Program Service
 router.post("/training-program", requestTrainingProgram);
 
-module.exports = router;
+export default router;

@@ -1,26 +1,27 @@
-require("dotenv").config();
-const express = require("express");
-const mongoose = require("mongoose");
-const passport = require("passport");
-const bodyParser = require("body-parser");
-const cors = require("cors");
-const session = require("express-session"); // Import express-session
+import dotenv from "dotenv";
+import express from "express";
+import mongoose from "mongoose";
+import passport from "passport";
+import bodyParser from "body-parser";
+import cors from "cors";
+import session from "express-session";
 
 // Import Routes
-const authRoutes = require("./routes/authRoutes.js");
-const linkedinAuthRoutes = require("./routes/linkedinAuthRoutes.js");
-const collegeRoutes = require("./routes/collegeRoutes");
-const companyRoutes = require("./routes/companyRoutes");
-const studentRoutes = require("./routes/studentRoutes");
-const hackathonRoutes = require("./routes/hackathonRoutes");
-const internshipRoutes = require("./routes/internshipRoutes");
-const internshipRequestRoutes = require("./routes/internshipRequestRoutes");
-const jobRoutes = require("./routes/jobRoutes");
-const offCampusRequestRoutes = require("./routes/offCampusRequestRoutes");
-const onCampusRequestRoutes = require("./routes/onCampusRequestRoutes");
-const createJobRoutes = require("./routes/createJobRoutes");
-const collegeServiceRoutes = require("./routes/collegeServiceRoutes");
-const companyServiceRoutes = require("./routes/companyServiceRoutes");
+dotenv.config();
+import authRoutes from "./routes/authRoutes.js";
+import linkedinAuthRoutes from "./routes/linkedinAuthRoutes.js";
+import collegeRoutes from "./routes/collegeRoutes.js";
+import companyRoutes from "./routes/companyRoutes.js";
+import studentRoutes from "./routes/studentRoutes.js";
+import hackathonRoutes from "./routes/hackathonRoutes.js";
+import internshipRoutes from "./routes/internshipRoutes.js";
+import internshipRequestRoutes from "./routes/internshipRequestRoutes.js";
+import jobRoutes from "./routes/jobRoutes.js";
+import offCampusRequestRoutes from "./routes/offCampusRequestRoutes.js";
+import onCampusRequestRoutes from "./routes/onCampusRequestRoutes.js";
+import createJobRoutes from "./routes/createJobRoutes.js";
+import collegeServiceRoutes from "./routes/collegeServiceRoutes.js";
+import companyServiceRoutes from "./routes/companyServiceRoutes.js";
 
 // Initialize Express
 const app = express();
@@ -41,13 +42,13 @@ app.use(
 );
 
 // Initialize Passport
-require("./middleware/passport.js"); // Loads authentication strategies
+import "./middleware/passport.js"; // Loads authentication strategies
 app.use(passport.initialize());
 app.use(passport.session());
 
 // Routes
 app.use("/api/auth", authRoutes);
-app.use("/api/auth", linkedinAuthRoutes); 
+app.use("/api/auth", linkedinAuthRoutes);
 app.use("/api/colleges", collegeRoutes);
 app.use("/api/companies", companyRoutes);
 app.use("/api/students", studentRoutes);

@@ -1,5 +1,5 @@
 // models/CollegeServiceRequest.js
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const collegeServiceRequestSchema = new mongoose.Schema(
   {
@@ -31,7 +31,7 @@ const collegeServiceRequestSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model(
+export default mongoose.model(
   "CollegeServiceRequest",
   collegeServiceRequestSchema
 );

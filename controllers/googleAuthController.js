@@ -1,8 +1,9 @@
-require("dotenv").config();
-const { google } = require("googleapis");
-const passport = require("passport");
-const jwt = require("jsonwebtoken");
+import dotenv from "dotenv";
+import { google } from "googleapis";
+import passport from "passport";
+import jwt from "jsonwebtoken";
 
+dotenv.config();
 // Load credentials
 const CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 const CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
@@ -22,17 +23,17 @@ oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
 async function getAccessToken() {
   try {
     const { credentials } = await oAuth2Client.refreshAccessToken();
-    console.log("✅ New Access Token:", credentials.access_token);
+    console.log("New Access Token:", credentials.access_token);
     return credentials.access_token;
   } catch (error) {
-    console.error("❌ ERROR: Failed to refresh access token", error);
+    console.error("ERROR: Failed to refresh access token", error);
     throw error;
   }
 }
 
 // Google authentication strategy using Passport.js
 passport.use(
-  new (require("passport-google-oauth20")).Strategy(
+  new (require("passport-google-oauth20").Strategy)(
     {
       clientID: CLIENT_ID,
       clientSecret: CLIENT_SECRET,
@@ -72,4 +73,4 @@ passport.deserializeUser((user, done) => {
   done(null, user);
 });
 
-module.exports = { getAccessToken, oAuth2Client };
+export default { getAccessToken, oAuth2Client };

@@ -1,10 +1,10 @@
 // controllers/collegeServiceController.js
-const CollegeServiceRequest = require("../models/CollegeServiceRequest");
-const College = require("../models/College");
-const mongoose = require("mongoose");
+import CollegeServiceRequest from "../models/CollegeServiceRequest.js";
+import College from "../models/college.js";
+import mongoose from "mongoose";
 
 // Request Campus Placement Service
-exports.requestCampusPlacement = async (req, res) => {
+export const requestCampusPlacement = async (req, res) => {
   try {
     const { collegeId } = req.body;
 
@@ -92,7 +92,7 @@ exports.requestCampusPlacement = async (req, res) => {
 };
 
 // Request Campus Branding Service
-exports.requestCampusBranding = async (req, res) => {
+export const requestCampusBranding = async (req, res) => {
   try {
     const { collegeId } = req.body;
 
@@ -128,7 +128,7 @@ exports.requestCampusBranding = async (req, res) => {
 };
 
 // Request Seminar Service
-exports.requestSeminar = async (req, res) => {
+export const requestSeminar = async (req, res) => {
   try {
     const { collegeId, seminarDetails } = req.body;
 
@@ -162,7 +162,7 @@ exports.requestSeminar = async (req, res) => {
 };
 
 // Request Training Program Service
-exports.requestTrainingProgram = async (req, res) => {
+export const requestTrainingProgram = async (req, res) => {
   try {
     const { collegeId, trainingProgramDetails } = req.body;
 

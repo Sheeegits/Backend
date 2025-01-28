@@ -1,9 +1,9 @@
 // controllers/trainingProgramController.js
-const ServiceRequest = require("../models/ServiceRequest");
-const College = require("../models/College");
-const mongoose = require("mongoose");
+import ServiceRequest from "../models/ServiceRequest";
+import College from "../models/College";
+import mongoose from "mongoose";
 
-exports.requestTrainingProgram = async (req, res) => {
+export const requestTrainingProgram = async (req, res) => {
   try {
     const { collegeId, trainingDetails } = req.body;
 

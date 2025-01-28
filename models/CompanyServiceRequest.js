@@ -1,5 +1,5 @@
 // models/CompanyServiceRequest.js
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const companyServiceRequestSchema = new mongoose.Schema(
   {
@@ -35,7 +35,7 @@ const companyServiceRequestSchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model(
+export default mongoose.model(
   "CompanyServiceRequest",
   companyServiceRequestSchema
 );

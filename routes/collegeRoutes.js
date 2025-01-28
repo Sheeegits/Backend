@@ -1,8 +1,8 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
 
 // Import controller functions from the collegeController
-const {
+import {
   getCollegeProfile,
   updateCollegeProfile,
   applyToOnCampusRequest,
@@ -13,13 +13,13 @@ const {
   getAppliedHackathons,
   getAppliedInternships,
   getAppliedOnCampusJobs,
-  getAppliedOffCampusJobs
-} = require("../controllers/collegeController");
+  getAppliedOffCampusJobs,
+} from "../controllers/collegeController.js";
 
 // Define routes for applying to requests
 
-router.get('/:id', getCollegeProfile);
-router.put('/:id', updateCollegeProfile);
+router.get("/:id", getCollegeProfile);
+router.put("/:id", updateCollegeProfile);
 router.post("/apply/oncampus/:id", applyToOnCampusRequest);
 router.post("/apply/offcampus/:id", applyToOffCampusRequest);
 router.post("/apply/internship/:id", applyToInternshipRequest);
@@ -32,4 +32,4 @@ router.get("/applied/offcampus/:id", getAppliedOffCampusJobs);
 // Global error handling middleware
 router.use(errorHandler);
 
-module.exports = router;
+export default router;

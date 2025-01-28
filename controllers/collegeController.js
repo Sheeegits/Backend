@@ -1,13 +1,13 @@
-const College = require("../models/College");
-//const JobPosting = require("../models/job");
-const InternshipRequest = require("../models/InternshipRequest");
-const OnCampusRequest = require("../models/OnCampusRequest");
-const OffCampusRequest = require("../models/OffCampusRequest");
-const Hackathon = require("../models/Hackathon");
-const mongoose = require("mongoose");
+import College from "../models/College.js";
+//import JobPosting from "../models/job";
+import InternshipRequest from "../models/InternshipRequest.js";
+import OnCampusRequest from "../models/OnCampusRequest.js";
+import OffCampusRequest from "../models/OffCampusRequest.js";
+import Hackathon from "../models/hackathon.js";
+import mongoose from "mongoose";
 
 // Get College Profile
-exports.getCollegeProfile = async (req, res) => {
+export const getCollegeProfile = async (req, res) => {
   try {
     const college = await College.findById(req.params.id);
 
@@ -21,7 +21,7 @@ exports.getCollegeProfile = async (req, res) => {
 };
 
 // Update College Profile
-exports.updateCollegeProfile = async (req, res) => {
+export const updateCollegeProfile = async (req, res) => {
   try {
     const { id } = req.params;
     const updatedData = req.body;
@@ -40,9 +40,8 @@ exports.updateCollegeProfile = async (req, res) => {
   }
 };
 
-
 // Apply to OnCampus Request
-exports.applyToOnCampusRequest = async (req, res) => {
+export const applyToOnCampusRequest = async (req, res) => {
   try {
     const { id } = req.params; // College ID
     const { jobId } = req.body; // OnCampusRequest ID
@@ -95,9 +94,8 @@ exports.applyToOnCampusRequest = async (req, res) => {
   }
 };
 
-
 // Fetch applied OnCampus Jobs for a College
-exports.getAppliedOnCampusJobs = async (req, res) => {
+export const getAppliedOnCampusJobs = async (req, res) => {
   try {
     const { id } = req.params; // College ID
 
@@ -107,14 +105,19 @@ exports.getAppliedOnCampusJobs = async (req, res) => {
     }
 
     // Find the College
-    const college = await College.findById(id).populate('on_campus_requests');
+    const college = await College.findById(id).populate("on_campus_requests");
     if (!college) {
       return res.status(404).json({ message: "College not found" });
     }
 
     // Check if there are applied OnCampus jobs
-    if (!college.on_campus_requests || college.on_campus_requests.length === 0) {
-      return res.status(404).json({ message: "No applied OnCampus jobs found" });
+    if (
+      !college.on_campus_requests ||
+      college.on_campus_requests.length === 0
+    ) {
+      return res
+        .status(404)
+        .json({ message: "No applied OnCampus jobs found" });
     }
 
     // Return the applied OnCampus jobs
@@ -124,13 +127,14 @@ exports.getAppliedOnCampusJobs = async (req, res) => {
     });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Error fetching applied OnCampus jobs", error });
+    res
+      .status(500)
+      .json({ message: "Error fetching applied OnCampus jobs", error });
   }
 };
 
-
 // Apply to OffCampus Request
-exports.applyToOffCampusRequest = async (req, res) => {
+export const applyToOffCampusRequest = async (req, res) => {
   try {
     const { id } = req.params; // College ID
     const { jobId } = req.body; // OffCampusRequest ID
@@ -160,7 +164,9 @@ exports.applyToOffCampusRequest = async (req, res) => {
 
     // Check if already applied
     if (college.off_campus_requests.includes(jobId)) {
-      return res.status(400).json({ message: "Already applied for this OffCampus job" });
+      return res
+        .status(400)
+        .json({ message: "Already applied for this OffCampus job" });
     }
 
     // Apply for the OffCampus Request
@@ -177,7 +183,7 @@ exports.applyToOffCampusRequest = async (req, res) => {
 };
 
 // Fetch applied OffCampus Jobs for a College
-exports.getAppliedOffCampusJobs = async (req, res) => {
+export const getAppliedOffCampusJobs = async (req, res) => {
   try {
     const { id } = req.params; // College ID
 
@@ -187,7 +193,7 @@ exports.getAppliedOffCampusJobs = async (req, res) => {
     }
 
     // Find the College and populate the OffCampus requests
-    const college = await College.findById(id).populate('off_campus_requests');
+    const college = await College.findById(id).populate("off_campus_requests");
     if (!college) {
       return res.status(404).json({ message: "College not found" });
     }
@@ -209,14 +215,14 @@ exports.getAppliedOffCampusJobs = async (req, res) => {
     });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Error fetching applied OffCampus jobs", error });
+    res
+      .status(500)
+      .json({ message: "Error fetching applied OffCampus jobs", error });
   }
 };
 
-
-
 // Apply to Internship Request
-exports.applyToInternshipRequest = async (req, res) => {
+export const applyToInternshipRequest = async (req, res) => {
   try {
     const { id } = req.params; // College ID
     const { internshipId } = req.body; // Internship ID
@@ -233,7 +239,9 @@ exports.applyToInternshipRequest = async (req, res) => {
     }
 
     // Check if the internship exists
-    const internshipExists = await InternshipRequest.exists({ _id: internshipId });
+    const internshipExists = await InternshipRequest.exists({
+      _id: internshipId,
+    });
     if (!internshipExists) {
       return res.status(404).json({ message: "Internship not found" });
     }
@@ -261,9 +269,8 @@ exports.applyToInternshipRequest = async (req, res) => {
   }
 };
 
-
 // Fetch Applied Internships
-exports.getAppliedInternships = async (req, res) => {
+export const getAppliedInternships = async (req, res) => {
   try {
     const { id } = req.params; // College ID
 
@@ -290,9 +297,8 @@ exports.getAppliedInternships = async (req, res) => {
   }
 };
 
-
 // Apply to Hackathon
-exports.applyToHackathon = async (req, res) => {
+export const applyToHackathon = async (req, res) => {
   try {
     const { id } = req.params; // College ID
     const { hackathonId } = req.body; // Hackathon ID
@@ -341,7 +347,7 @@ exports.applyToHackathon = async (req, res) => {
   }
 };
 
-exports.getAppliedHackathons = async (req, res) => {
+export const getAppliedHackathons = async (req, res) => {
   try {
     const { id } = req.params; // College ID
 
@@ -365,10 +371,8 @@ exports.getAppliedHackathons = async (req, res) => {
   }
 };
 
-
-
 // Global error handler
-exports.errorHandler = (err, req, res, next) => {
+export const errorHandler = (err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ message: "Something went wrong" });
 };

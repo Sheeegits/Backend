@@ -1,8 +1,12 @@
-const passport = require("passport");
-const GoogleStrategy = require("passport-google-oauth20").Strategy;
-const LinkedInStrategy = require("passport-linkedin-oauth2").Strategy;
-const jwt = require("jsonwebtoken");
-require("dotenv").config();
+import passport from "passport";
+import GoogleStrategy from "passport-google-oauth20";
+import { Strategy as LinkedInStrategy } from "passport-linkedin-oauth2";
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+
+dotenv.config();
+GoogleStrategy.Strategy;
+LinkedInStrategy.Strategy;
 
 // Load credentials from .env
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
@@ -90,4 +94,4 @@ passport.deserializeUser((user, done) => {
 });
 
 // Export Passport
-module.exports = passport;
+export default passport;

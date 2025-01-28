@@ -1,7 +1,7 @@
 // routes/companyServiceRoutes.js
-const express = require("express");
+import express from "express";
 const router = express.Router();
-const companyServiceController = require("../controllers/companyServiceController");
+import companyServiceController from "../controllers/companyServiceController.js";
 
 // Routes for company services
 router.post("/campus-drives", companyServiceController.requestCampusDrives);
@@ -20,4 +20,4 @@ router.post(
   companyServiceController.requestEmployerBranding
 );
 
-module.exports = router;
+export default router;

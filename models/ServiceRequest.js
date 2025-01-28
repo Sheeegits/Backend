@@ -1,5 +1,5 @@
 // models/ServiceRequest.js
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const ServiceRequestSchema = new mongoose.Schema({
   college: {
@@ -32,4 +32,4 @@ const ServiceRequestSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("ServiceRequest", ServiceRequestSchema);
+export default mongoose.model("ServiceRequest", ServiceRequestSchema);

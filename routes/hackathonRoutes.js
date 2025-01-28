@@ -1,12 +1,12 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
-const {
+import {
   createHackathon,
   getHackathon,
   getAllHackathons,
   updateHackathon,
   deleteHackathon,
-} = require("../controllers/hackathonController");
+} from "../controllers/hackathonController.js";
 
 // Create a new Hackathon
 router.post("/", createHackathon);
@@ -23,4 +23,4 @@ router.put("/:id", updateHackathon);
 // Delete Hackathon by ID
 router.delete("/:id", deleteHackathon);
 
-module.exports = router;
+export default router;
